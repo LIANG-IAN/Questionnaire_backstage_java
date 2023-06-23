@@ -16,4 +16,7 @@ public interface QuestionnaireContentService {
 
   // 透過外鍵搜尋所有問題
   public QuestionnaireContentResponse findAllByQuestionnaireId(QuestionnaireContentRequest questionnaireContentRequest);
+
+  // id搜尋
+  public QuestionnaireContentResponse findById(QuestionnaireContentRequest questionnaireContentRequest);
 }

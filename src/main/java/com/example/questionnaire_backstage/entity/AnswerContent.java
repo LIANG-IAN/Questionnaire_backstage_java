@@ -15,7 +15,7 @@ public class AnswerContent {
   private int userId;
 
   @Column(name = "answer")
-  private int answer;
+  private String answer;
 
   @ManyToOne
   @JoinColumn(name = "questionnaire_id")
@@ -44,11 +44,11 @@ public class AnswerContent {
     this.userId = userId;
   }
 
-  public int getAnswer() {
+  public String getAnswer() {
     return answer;
   }
 
-  public void setAnswer(int answer) {
+  public void setAnswer(String answer) {
     this.answer = answer;
   }
 

@@ -1,9 +1,8 @@
 package com.example.questionnaire_backstage.controller;
 
+import com.example.questionnaire_backstage.service.ifs.QuestionnaireContentService;
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
-import com.example.questionnaire_backstage.vo.QuestionnaireRequest;
-import com.example.questionnaire_backstage.vo.QuestionnaireResponse;
-import com.example.questionnaire_backstage.vo.QuestionnaireSearchRequest;
+import com.example.questionnaire_backstage.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +14,10 @@ public class QuestionnaireBackstageController {
   @Autowired
   QuestionnaireService questionnaireService;
 
+  @Autowired
+  QuestionnaireContentService questionnaireContentService;
+
+  //  ====================Questionnaire====================
 
   @PostMapping(value = "addQuestionnaire")
   public QuestionnaireResponse addQuestionnaire(@RequestBody QuestionnaireRequest questionnaireRequest) {
@@ -69,5 +72,32 @@ public class QuestionnaireBackstageController {
   @PostMapping(value = "findByEndTimeLessThan")
   public QuestionnaireResponse findByEndTimeLessThan(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByEndTimeLessThan(questionnaireSearchRequest);
+  }
+
+  //  ====================QuestionnaireContent====================
+
+  @PostMapping(value = "addQuestionnaireContent")
+  public QuestionnaireContentResponse addQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+    return questionnaireContentService.addQuestionnaireContent(questionnaireContentRequest);
+  }
+
+  @PostMapping(value = "deleteQuestionnaireContent")
+  public QuestionnaireContentResponse deleteQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+    return questionnaireContentService.deleteQuestionnaireContent(questionnaireContentRequest);
+  }
+
+  @PostMapping(value = "modifyQuestionnaireContent")
+  public QuestionnaireContentResponse modifyQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+    return questionnaireContentService.modifyQuestionnaireContent(questionnaireContentRequest);
+  }
+
+  @PostMapping(value = "findAllByQuestionnaireId")
+  public QuestionnaireContentResponse findAllByQuestionnaireId(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+    return questionnaireContentService.findAllByQuestionnaireId(questionnaireContentRequest);
+  }
+
+  @PostMapping(value = "findById")
+  public QuestionnaireContentResponse findById(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+    return questionnaireContentService.findById(questionnaireContentRequest);
   }
 }

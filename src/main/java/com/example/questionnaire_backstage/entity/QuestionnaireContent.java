@@ -18,8 +18,8 @@ public class QuestionnaireContent {
   @Column(name = "options")
   private String options;
 
-  @Column(name = "is_necessary", columnDefinition = "TINYINT(1)")
-  private boolean isNecessary;
+  @Column(name = "necessary", columnDefinition = "TINYINT(1)")
+  private boolean necessary;
 
   @Column(name = "type")
   private String type;
@@ -56,11 +56,11 @@ public class QuestionnaireContent {
   }
 
   public boolean isNecessary() {
-    return isNecessary;
+    return necessary;
   }
 
   public void setNecessary(boolean necessary) {
-    isNecessary = necessary;
+    this.necessary = necessary;
   }
 
   public String getType() {
