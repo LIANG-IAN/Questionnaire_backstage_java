@@ -2,7 +2,7 @@ package com.example.questionnaire_backstage.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "questionnaire")
@@ -20,10 +20,10 @@ public class Questionnaire {
   private String mainPoint;
 
   @Column(name = "starting_time")
-  private LocalDateTime startingTime = LocalDateTime.now();
+  private LocalDate startingTime = LocalDate.now();
 
   @Column(name = "end_time")
-  private LocalDateTime endTime;
+  private LocalDate endTime;
 
   public Questionnaire() {
   }
@@ -40,7 +40,7 @@ public class Questionnaire {
     return questionnaire;
   }
 
-  public Questionnaire(int id, String questionnaire, String mainPoint, LocalDateTime startingTime, LocalDateTime endTime) {
+  public Questionnaire(int id, String questionnaire, String mainPoint, LocalDate startingTime, LocalDate endTime) {
     this.id = id;
     this.questionnaire = questionnaire;
     this.mainPoint = mainPoint;
@@ -60,19 +60,19 @@ public class Questionnaire {
     this.mainPoint = mainPoint;
   }
 
-  public LocalDateTime getStartingTime() {
+  public LocalDate getStartingTime() {
     return startingTime;
   }
 
-  public void setStartingTime(LocalDateTime startingTime) {
+  public void setStartingTime(LocalDate startingTime) {
     this.startingTime = startingTime;
   }
 
-  public LocalDateTime getEndTime() {
+  public LocalDate getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(LocalDateTime endTime) {
+  public void setEndTime(LocalDate endTime) {
     this.endTime = endTime;
   }
 }
