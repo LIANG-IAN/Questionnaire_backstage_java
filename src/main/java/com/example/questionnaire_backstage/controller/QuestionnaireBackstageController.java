@@ -4,7 +4,6 @@ import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
 import com.example.questionnaire_backstage.vo.QuestionnaireRequest;
 import com.example.questionnaire_backstage.vo.QuestionnaireResponse;
 import com.example.questionnaire_backstage.vo.QuestionnaireSearchRequest;
-import com.example.questionnaire_backstage.vo.QuestionnaireSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,43 +31,43 @@ public class QuestionnaireBackstageController {
     return questionnaireService.modifyQuestionnaire(questionnaireRequest);
   }
 
-  @PostMapping(value = "findById")
-  public QuestionnaireResponse findById(@RequestBody QuestionnaireRequest questionnaireRequest) {
-    return questionnaireService.findById(questionnaireRequest);
+  @PostMapping(value = "findByQuestionnaireId")
+  public QuestionnaireResponse findByQuestionnaireId(@RequestBody QuestionnaireRequest questionnaireRequest) {
+    return questionnaireService.findByQuestionnaireId(questionnaireRequest);
   }
 
   @GetMapping(value = "findAll")
-  public QuestionnaireSearchResponse findAll() {
+  public QuestionnaireResponse findAll() {
     return questionnaireService.findAll();
   }
 
   @PostMapping(value = "findByQuestionnaireFuzzySearch")
-  public QuestionnaireSearchResponse findByQuestionnaireFuzzySearch(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByQuestionnaireFuzzySearch(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByQuestionnaireFuzzySearch(questionnaireSearchRequest);
   }
 
   @PostMapping(value = "findByStartingTime")
-  public QuestionnaireSearchResponse findByStartingTime(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTime(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByStartingTime(questionnaireSearchRequest);
   }
 
   @PostMapping(value = "findByEndTime")
-  public QuestionnaireSearchResponse findByEndTime(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByEndTime(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByEndTime(questionnaireSearchRequest);
   }
 
   @PostMapping(value = "findByStartingTimeBetween")
-  public QuestionnaireSearchResponse findByStartingTimeBetween(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTimeBetween(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByStartingTimeBetween(questionnaireSearchRequest);
   }
 
   @PostMapping(value = "findByStartingTimeGreaterThan")
-  public QuestionnaireSearchResponse findByStartingTimeGreaterThan(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTimeGreaterThan(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByStartingTimeGreaterThan(questionnaireSearchRequest);
   }
 
   @PostMapping(value = "findByEndTimeLessThan")
-  public QuestionnaireSearchResponse findByEndTimeLessThan(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByEndTimeLessThan(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
     return questionnaireService.findByEndTimeLessThan(questionnaireSearchRequest);
   }
 }

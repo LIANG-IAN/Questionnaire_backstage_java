@@ -7,7 +7,6 @@ import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
 import com.example.questionnaire_backstage.vo.QuestionnaireRequest;
 import com.example.questionnaire_backstage.vo.QuestionnaireResponse;
 import com.example.questionnaire_backstage.vo.QuestionnaireSearchRequest;
-import com.example.questionnaire_backstage.vo.QuestionnaireSearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -32,7 +31,7 @@ public class QuestionnaireImpl implements QuestionnaireService {
 
     // 判斷各參數是否符合規定
     if (questionnaire == null || isQuestionnaireLegal(questionnaire)) {
-      return new QuestionnaireResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     questionnaireDao.save(questionnaire);
@@ -47,7 +46,7 @@ public class QuestionnaireImpl implements QuestionnaireService {
 
     // 判斷Id是否符合規定
     if (id <= 0) {
-      return new QuestionnaireResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     questionnaireDao.deleteById(id);
@@ -61,7 +60,7 @@ public class QuestionnaireImpl implements QuestionnaireService {
 
     // 判斷各參數是否符合規定
     if (newQuestionnaire == null || isQuestionnaireLegal(newQuestionnaire)) {
-      return new QuestionnaireResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     // 判斷問卷是否存在
@@ -74,12 +73,12 @@ public class QuestionnaireImpl implements QuestionnaireService {
   }
 
   @Override
-  public QuestionnaireResponse findById(QuestionnaireRequest questionnaireRequest) {
+  public QuestionnaireResponse findByQuestionnaireId(QuestionnaireRequest questionnaireRequest) {
     int id = questionnaireRequest.getId();
 
     // 判斷Id是否符合規定
     if (id <= 0) {
-      return new QuestionnaireResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     // 判斷是否有匹配問卷
@@ -94,124 +93,124 @@ public class QuestionnaireImpl implements QuestionnaireService {
   }
 
   @Override
-  public QuestionnaireSearchResponse findAll() {
+  public QuestionnaireResponse findAll() {
 
-    return new QuestionnaireSearchResponse(questionnaireDao.findAll(), RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireDao.findAll(), RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByQuestionnaireFuzzySearch(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByQuestionnaireFuzzySearch(QuestionnaireSearchRequest questionnaireSearchRequest) {
     String questionnaire = questionnaireSearchRequest.getQuestionnaire();
 
     // 非空判斷
     if (!StringUtils.hasText(questionnaire)) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByQuestionnaireFuzzySearch(questionnaire);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByStartingTime(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTime(QuestionnaireSearchRequest questionnaireSearchRequest) {
     LocalDate stringTime = questionnaireSearchRequest.getStartingTime();
 
     // 非空判斷
     if (stringTime == null) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByStartingTime(stringTime);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByEndTime(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByEndTime(QuestionnaireSearchRequest questionnaireSearchRequest) {
     LocalDate endTime = questionnaireSearchRequest.getEndTime();
 
     // 非空判斷
     if (endTime == null) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByEndTime(endTime);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByStartingTimeBetween(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTimeBetween(QuestionnaireSearchRequest questionnaireSearchRequest) {
     LocalDate stringTime = questionnaireSearchRequest.getStartingTime();
     LocalDate endTime = questionnaireSearchRequest.getEndTime();
 
     // 非空判斷
     if (stringTime == null || endTime == null) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByStartingTimeGreaterThanEqualAndEndTimeLessThanEqual(stringTime, endTime);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByStartingTimeGreaterThan(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByStartingTimeGreaterThan(QuestionnaireSearchRequest questionnaireSearchRequest) {
     LocalDate stringTime = questionnaireSearchRequest.getStartingTime();
 
     // 非空判斷
     if (stringTime == null) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByStartingTimeGreaterThanEqual(stringTime);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
   @Override
-  public QuestionnaireSearchResponse findByEndTimeLessThan(QuestionnaireSearchRequest questionnaireSearchRequest) {
+  public QuestionnaireResponse findByEndTimeLessThan(QuestionnaireSearchRequest questionnaireSearchRequest) {
     LocalDate endTime = questionnaireSearchRequest.getEndTime();
 
     // 非空判斷
     if (endTime == null) {
-      return new QuestionnaireSearchResponse(RtnCode.INPUT_NOT_ALLOWED_BLANK_ERROR.getMessage());
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     List<Questionnaire> questionnaireList = questionnaireDao.findByEndTimeLessThanEqual(endTime);
 
     // 判斷是否有匹配問卷
     if (CollectionUtils.isEmpty(questionnaireList)) {
-      return new QuestionnaireSearchResponse(RtnCode.NOT_FOUND.getMessage());
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new QuestionnaireSearchResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
 
   }
 

@@ -4,7 +4,7 @@ import com.example.questionnaire_backstage.entity.Questionnaire;
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
 import com.example.questionnaire_backstage.vo.QuestionnaireRequest;
 import com.example.questionnaire_backstage.vo.QuestionnaireSearchRequest;
-import com.example.questionnaire_backstage.vo.QuestionnaireSearchResponse;
+import com.example.questionnaire_backstage.vo.QuestionnaireResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,9 +42,9 @@ public class QuestionnaireTest {
   public void findByQuestionnaireFuzzySearch(){
     QuestionnaireSearchRequest questionnaireSearchRequest = new QuestionnaireSearchRequest();
     questionnaireSearchRequest.setQuestionnaire("東");
-    QuestionnaireSearchResponse questionnaireSearchResponse = questionnaireService.findByQuestionnaireFuzzySearch(questionnaireSearchRequest);
-    System.out.println(CollectionUtils.isEmpty(questionnaireSearchResponse.getQuestionnaireList()));
-    System.out.println(questionnaireSearchResponse.getQuestionnaireList().size());
+    QuestionnaireResponse questionnaireResponse = questionnaireService.findByQuestionnaireFuzzySearch(questionnaireSearchRequest);
+    System.out.println(CollectionUtils.isEmpty(questionnaireResponse.getQuestionnaireList()));
+    System.out.println(questionnaireResponse.getQuestionnaireList().size());
     System.out.println("===================================================");
   }
 
