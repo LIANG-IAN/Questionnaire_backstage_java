@@ -1,13 +1,18 @@
 package com.example.questionnaire_backstage.vo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class QuestionnaireSearchRequest {
 
+  @JsonProperty("startingTime")
   private LocalDate startingTime;
 
+  @JsonProperty("endTime")
   private LocalDate endTime;
 
+  @JsonProperty("questionnaire")
   private String questionnaire;
 
   public LocalDate getStartingTime() {

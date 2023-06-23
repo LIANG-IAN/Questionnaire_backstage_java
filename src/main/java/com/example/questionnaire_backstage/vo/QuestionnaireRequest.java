@@ -1,11 +1,13 @@
 package com.example.questionnaire_backstage.vo;
 
 import com.example.questionnaire_backstage.entity.Questionnaire;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class QuestionnaireRequest {
 
+  @JsonProperty("id")
   private int id;
-
+  @JsonProperty("questionnaire")
   private Questionnaire questionnaire;
 
 

@@ -21,6 +21,9 @@ public interface QuestionnaireService {
   // 修改
   public QuestionnaireResponse modifyQuestionnaire(QuestionnaireRequest questionnaireRequest);
 
+  // 查
+  public QuestionnaireResponse findById(QuestionnaireRequest questionnaireRequest);
+
   // 尋找全部問卷
   public QuestionnaireSearchResponse findAll();
 

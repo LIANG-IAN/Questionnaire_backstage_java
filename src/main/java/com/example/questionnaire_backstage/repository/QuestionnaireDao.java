@@ -25,12 +25,12 @@ public interface QuestionnaireDao extends JpaRepository<Questionnaire,Integer> {
   public List<Questionnaire> findByEndTime(LocalDate endTime);
 
   // 時間區間搜尋
-  public List<Questionnaire> findByStartingTimeBetween(LocalDate startingTime,LocalDate endTime);
+  public List<Questionnaire> findByStartingTimeGreaterThanEqualAndEndTimeLessThanEqual(LocalDate startingTime, LocalDate endTime);
 
   // 開始時間以後搜尋
-  public List<Questionnaire> findByStartingTimeGreaterThan(LocalDate startingTime);
+  public List<Questionnaire> findByStartingTimeGreaterThanEqual(LocalDate startingTime);
 
   // 結束時間以前搜尋
-  public List<Questionnaire> findByEndTimeLessThan(LocalDate endTime);
+  public List<Questionnaire> findByEndTimeLessThanEqual(LocalDate endTime);
 }
 	
