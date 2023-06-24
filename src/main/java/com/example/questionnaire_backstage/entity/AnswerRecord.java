@@ -23,4 +23,39 @@ public class AnswerRecord {
 
   @Column(name = "filling_time")
   private LocalDateTime fillingTime = LocalDateTime.now();
+
+  public AnswerRecord() {
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public Questionnaire getQuestionnaire() {
+    return questionnaire;
+  }
+
+  public void setQuestionnaire(Questionnaire questionnaire) {
+    this.questionnaire = questionnaire;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public LocalDateTime getFillingTime() {
+    return fillingTime;
+  }
+
+  public void setFillingTime(LocalDateTime fillingTime) {
+    this.fillingTime = fillingTime;
+  }
 }

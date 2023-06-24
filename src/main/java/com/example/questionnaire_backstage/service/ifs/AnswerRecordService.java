@@ -6,6 +6,7 @@ import com.example.questionnaire_backstage.vo.AnswerRecordResponse;
 public interface AnswerRecordService {
 
   // 新增人回答紀錄
+  // 重複作答則更新
   public AnswerRecordResponse addAnswerRecord(AnswerRecordRequest answerRecordRequest);
 
   // 刪除人回答紀錄
@@ -14,9 +15,6 @@ public interface AnswerRecordService {
   // Id搜尋人回答紀錄
   public AnswerRecordResponse findByAnswerRecordId(AnswerRecordRequest answerRecordRequest);
 
-  // 外鍵UserId搜尋人回答紀錄
-  public AnswerRecordResponse findByUserIdFromAnswerRecord(AnswerRecordRequest answerRecordRequest);
-
   // 外鍵QuestionnaireId搜尋人回答紀錄
-  public AnswerRecordResponse findByQuestionnaireIdFromAnswerRecord(AnswerRecordRequest answerRecordRequest);
+  public AnswerRecordResponse findAllByQuestionnaireIdFromAnswerRecordOrder(AnswerRecordRequest answerRecordRequest);
 }

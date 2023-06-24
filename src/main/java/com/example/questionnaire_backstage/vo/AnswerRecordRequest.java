@@ -1,5 +1,6 @@
 package com.example.questionnaire_backstage.vo;
 
+import com.example.questionnaire_backstage.entity.AnswerRecord;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AnswerRecordRequest {
@@ -12,6 +13,8 @@ public class AnswerRecordRequest {
 
   @JsonProperty("userId")
   private int userId;
+
+  private AnswerRecord answerRecord;
 
 
   public AnswerRecordRequest() {
@@ -27,5 +30,9 @@ public class AnswerRecordRequest {
 
   public int getUserId() {
     return userId;
+  }
+
+  public AnswerRecord getAnswerRecord() {
+    return answerRecord;
   }
 }

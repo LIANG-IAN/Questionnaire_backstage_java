@@ -12,6 +12,20 @@ public class AnswerRecordResponse {
 
   private String message;
 
+  public AnswerRecordResponse(AnswerRecord answerRecord, String message) {
+    this.answerRecord = answerRecord;
+    this.message = message;
+  }
+
+  public AnswerRecordResponse(List<AnswerRecord> answerRecordList, String message) {
+    this.answerRecordList = answerRecordList;
+    this.message = message;
+  }
+
+  public AnswerRecordResponse(String message) {
+    this.message = message;
+  }
+
   public AnswerRecord getAnswerRecord() {
     return answerRecord;
   }
