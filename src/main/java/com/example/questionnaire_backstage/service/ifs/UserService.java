@@ -6,6 +6,7 @@ import com.example.questionnaire_backstage.vo.UserResponse;
 public interface UserService {
 
   // 新增人
+  // 電話號碼不得重複
   public UserResponse addUser(UserRequest userRequest);
 
   // 刪除人

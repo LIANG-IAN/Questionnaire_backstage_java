@@ -4,11 +4,18 @@ import com.example.questionnaire_backstage.entity.User;
 
 public class UserResponse {
 
+  private int id;
+
   private User user;
 
   private String message;
 
   public UserResponse() {
+  }
+
+  public UserResponse(int id, String message) {
+    this.id = id;
+    this.message = message;
   }
 
   public UserResponse(User user, String message) {
@@ -18,6 +25,10 @@ public class UserResponse {
 
   public UserResponse(String message) {
     this.message = message;
+  }
+
+  public int getId() {
+    return id;
   }
 
   public User getUser() {

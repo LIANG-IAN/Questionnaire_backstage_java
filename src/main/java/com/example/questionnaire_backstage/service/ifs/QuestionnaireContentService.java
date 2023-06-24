@@ -18,5 +18,5 @@ public interface QuestionnaireContentService {
   public QuestionnaireContentResponse findAllByQuestionnaireId(QuestionnaireContentRequest questionnaireContentRequest);
 
   // id搜尋
-  public QuestionnaireContentResponse findById(QuestionnaireContentRequest questionnaireContentRequest);
+  public QuestionnaireContentResponse findByQuestionnaireContentId(QuestionnaireContentRequest questionnaireContentRequest);
 }

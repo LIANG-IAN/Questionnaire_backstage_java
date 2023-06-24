@@ -27,8 +27,19 @@ public class UserImpl implements UserService {
       return new UserResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
-    userDao.save(user);
-    return new UserResponse(RtnCode.ADD_SUCCESS.getMessage());
+    // 依據電話號碼，判斷是否登入過
+    User oldUser = userDao.findByTel(user.getTel());
+    if (oldUser != null){
+      oldUser.setName(user.getName());
+      oldUser.setAge(user.getAge());
+      oldUser.setEmail(user.getEmail());
+
+      userDao.save(oldUser);
+
+      return new UserResponse(oldUser.getId(),RtnCode.ADD_SUCCESS.getMessage());
+    }
+    User newUser = userDao.save(user);
+    return new UserResponse(newUser.getId(),RtnCode.ADD_SUCCESS.getMessage());
   }
 
   @Override

@@ -11,8 +11,9 @@ public class AnswerContent {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "user_id")
-  private int userId;
+  @ManyToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 
   @Column(name = "answer")
   private String answer;
@@ -36,12 +37,12 @@ public class AnswerContent {
     this.id = id;
   }
 
-  public int getUserId() {
-    return userId;
+  public User getUser() {
+    return user;
   }
 
-  public void setUserId(int userId) {
-    this.userId = userId;
+  public void setUser(User user) {
+    this.user = user;
   }
 
   public String getAnswer() {

@@ -160,7 +160,7 @@ public class QuestionnaireContentImpl implements QuestionnaireContentService {
   }
 
   @Override
-  public QuestionnaireContentResponse findById(QuestionnaireContentRequest questionnaireContentRequest) {
+  public QuestionnaireContentResponse findByQuestionnaireContentId(QuestionnaireContentRequest questionnaireContentRequest) {
     int id = questionnaireContentRequest.getId();
 
     // 判斷Id是否符合規定
@@ -182,7 +182,8 @@ public class QuestionnaireContentImpl implements QuestionnaireContentService {
 
   // 檢查物件QuestionnaireContent，不合規定返回true
   private boolean isQuestionnaireContentLegal(QuestionnaireContent questionnaireContent) {
-    return  !questionnaireDao.existsById(questionnaireContent.getQuestionnaire().getId()) ||
+    return  questionnaireContent.getQuestionnaire().getId() <=0 ||
+            !questionnaireDao.existsById(questionnaireContent.getQuestionnaire().getId()) ||
             !StringUtils.hasText(questionnaireContent.getQuestion()) ||
             !StringUtils.hasText(questionnaireContent.getOptions()) ||
             !StringUtils.hasText(questionnaireContent.getType());

@@ -1,5 +1,7 @@
 package com.example.questionnaire_backstage.controller;
 
+import com.example.questionnaire_backstage.repository.AnswerContentDao;
+import com.example.questionnaire_backstage.service.ifs.AnswerContentService;
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireContentService;
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
 import com.example.questionnaire_backstage.service.ifs.UserService;
@@ -20,6 +22,9 @@ public class QuestionnaireBackstageController {
 
   @Autowired
   UserService userService;
+
+  @Autowired
+  AnswerContentService answerContentService;
 
   //  ====================Questionnaire====================
 
@@ -81,44 +86,67 @@ public class QuestionnaireBackstageController {
   //  ====================QuestionnaireContent====================
 
   @PostMapping(value = "addQuestionnaireContent")
-  public QuestionnaireContentResponse addQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+  public QuestionnaireContentResponse addQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest) {
     return questionnaireContentService.addQuestionnaireContent(questionnaireContentRequest);
   }
 
   @PostMapping(value = "deleteQuestionnaireContent")
-  public QuestionnaireContentResponse deleteQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+  public QuestionnaireContentResponse deleteQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest) {
     return questionnaireContentService.deleteQuestionnaireContent(questionnaireContentRequest);
   }
 
   @PostMapping(value = "modifyQuestionnaireContent")
-  public QuestionnaireContentResponse modifyQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+  public QuestionnaireContentResponse modifyQuestionnaireContent(@RequestBody QuestionnaireContentRequest questionnaireContentRequest) {
     return questionnaireContentService.modifyQuestionnaireContent(questionnaireContentRequest);
   }
 
   @PostMapping(value = "findAllByQuestionnaireId")
-  public QuestionnaireContentResponse findAllByQuestionnaireId(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
+  public QuestionnaireContentResponse findAllByQuestionnaireId(@RequestBody QuestionnaireContentRequest questionnaireContentRequest) {
     return questionnaireContentService.findAllByQuestionnaireId(questionnaireContentRequest);
   }
 
-  @PostMapping(value = "findById")
-  public QuestionnaireContentResponse findById(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
-    return questionnaireContentService.findById(questionnaireContentRequest);
+  @PostMapping(value = "findByQuestionnaireContentId")
+  public QuestionnaireContentResponse findByQuestionnaireContentId(@RequestBody QuestionnaireContentRequest questionnaireContentRequest) {
+    return questionnaireContentService.findByQuestionnaireContentId(questionnaireContentRequest);
   }
 
   //  ====================User====================
 
   @PostMapping(value = "addUser")
-  public UserResponse addUser(@RequestBody UserRequest userRequest){
+  public UserResponse addUser(@RequestBody UserRequest userRequest) {
     return userService.addUser(userRequest);
   }
 
   @PostMapping(value = "deleteUser")
-  public UserResponse deleteUser(@RequestBody UserRequest userRequest){
+  public UserResponse deleteUser(@RequestBody UserRequest userRequest) {
     return userService.deleteUser(userRequest);
   }
 
   @PostMapping(value = "findByUserId")
-  public UserResponse findByUserId(@RequestBody UserRequest userRequest){
+  public UserResponse findByUserId(@RequestBody UserRequest userRequest) {
     return userService.findByUserId(userRequest);
   }
+
+  //  ====================AnswerContent====================
+
+  @PostMapping(value = "addAnswerContent")
+  public AnswerContentResponse addAnswerContent(@RequestBody AnswerContentRequest answerContentRequest) {
+    return answerContentService.addAnswerContent(answerContentRequest);
+  }
+
+  @PostMapping(value = "deleteAnswerContent")
+  public AnswerContentResponse deleteAnswerContent(@RequestBody AnswerContentRequest answerContentRequest) {
+    return answerContentService.deleteAnswerContent (answerContentRequest);
+  }
+
+  @PostMapping(value = "findByAnswerContentId")
+  public AnswerContentResponse  findByAnswerContentId(@RequestBody AnswerContentRequest answerContentRequest) {
+    return answerContentService.findByAnswerContentId (answerContentRequest);
+  }
+
+  @PostMapping(value = "findByQuestionnaireIdFromAnswerContent")
+  public AnswerContentResponse findByQuestionnaireIdFromAnswerContent(@RequestBody AnswerContentRequest answerContentRequest) {
+    return answerContentService.findByQuestionnaireIdFromAnswerContent (answerContentRequest);
+  }
+
 }
