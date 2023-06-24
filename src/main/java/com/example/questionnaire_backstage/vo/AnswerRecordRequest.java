@@ -14,6 +14,7 @@ public class AnswerRecordRequest {
   @JsonProperty("userId")
   private int userId;
 
+  @JsonProperty("answerRecord")
   private AnswerRecord answerRecord;
 
 

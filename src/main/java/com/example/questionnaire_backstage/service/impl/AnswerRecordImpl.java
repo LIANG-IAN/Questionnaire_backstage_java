@@ -108,8 +108,8 @@ public class AnswerRecordImpl implements AnswerRecordService {
 
   // 檢查物件AnswerRecord，不合規定返回true
   private boolean isAnswerRecordLegal(AnswerRecord answerRecord) {
-    return questionnaireDao.existsById(answerRecord.getQuestionnaire().getId()) ||
-            userDao.existsById(answerRecord.getUser().getId()) ||
+    return !questionnaireDao.existsById(answerRecord.getQuestionnaire().getId()) ||
+            !userDao.existsById(answerRecord.getUser().getId()) ||
             answerRecord.getFillingTime() == null;
   }
 

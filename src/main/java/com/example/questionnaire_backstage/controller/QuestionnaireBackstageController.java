@@ -1,10 +1,8 @@
 package com.example.questionnaire_backstage.controller;
 
 import com.example.questionnaire_backstage.repository.AnswerContentDao;
-import com.example.questionnaire_backstage.service.ifs.AnswerContentService;
-import com.example.questionnaire_backstage.service.ifs.QuestionnaireContentService;
-import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
-import com.example.questionnaire_backstage.service.ifs.UserService;
+import com.example.questionnaire_backstage.repository.AnswerRecordDao;
+import com.example.questionnaire_backstage.service.ifs.*;
 import com.example.questionnaire_backstage.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,9 @@ public class QuestionnaireBackstageController {
 
   @Autowired
   AnswerContentService answerContentService;
+
+  @Autowired
+  AnswerRecordService answerRecordService;
 
   //  ====================Questionnaire====================
 
@@ -149,4 +150,25 @@ public class QuestionnaireBackstageController {
     return answerContentService.findByQuestionnaireIdFromAnswerContent (answerContentRequest);
   }
 
+  //  ====================AnswerRecord====================
+
+  @PostMapping(value = "addAnswerRecord")
+  public AnswerRecordResponse addAnswerRecord(@RequestBody AnswerRecordRequest answerRecordRequest){
+    return answerRecordService.addAnswerRecord(answerRecordRequest);
+  }
+
+  @PostMapping(value = "deleteAnswerRecord")
+  public AnswerRecordResponse deleteAnswerRecord(@RequestBody AnswerRecordRequest answerRecordRequest){
+    return answerRecordService.deleteAnswerRecord(answerRecordRequest);
+  }
+
+  @PostMapping(value = "findByAnswerRecordId")
+  public AnswerRecordResponse findByAnswerRecordId(@RequestBody AnswerRecordRequest answerRecordRequest){
+    return answerRecordService.findByAnswerRecordId(answerRecordRequest);
+  }
+
+  @PostMapping(value = "findAllByQuestionnaireIdFromAnswerRecordOrder")
+  public AnswerRecordResponse findAllByQuestionnaireIdFromAnswerRecordOrder(@RequestBody AnswerRecordRequest answerRecordRequest){
+    return answerRecordService.findAllByQuestionnaireIdFromAnswerRecordOrder(answerRecordRequest);
+  }
 }
