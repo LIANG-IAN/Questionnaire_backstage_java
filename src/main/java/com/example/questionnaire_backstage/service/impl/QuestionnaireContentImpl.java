@@ -57,7 +57,7 @@ public class QuestionnaireContentImpl implements QuestionnaireContentService {
 
     questionnaireContentDao.saveAll(correctQuestionnaireContentList);
 
-    return new QuestionnaireContentResponse(RtnCode.ADD_QUESTIONNAIRE_CONTENT_SUCCESS.getMessage());
+    return new QuestionnaireContentResponse(RtnCode.ADD_SUCCESS.getMessage());
   }
 
   @Override

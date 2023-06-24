@@ -2,6 +2,7 @@ package com.example.questionnaire_backstage.controller;
 
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireContentService;
 import com.example.questionnaire_backstage.service.ifs.QuestionnaireService;
+import com.example.questionnaire_backstage.service.ifs.UserService;
 import com.example.questionnaire_backstage.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class QuestionnaireBackstageController {
 
   @Autowired
   QuestionnaireContentService questionnaireContentService;
+
+  @Autowired
+  UserService userService;
 
   //  ====================Questionnaire====================
 
@@ -99,5 +103,22 @@ public class QuestionnaireBackstageController {
   @PostMapping(value = "findById")
   public QuestionnaireContentResponse findById(@RequestBody QuestionnaireContentRequest questionnaireContentRequest){
     return questionnaireContentService.findById(questionnaireContentRequest);
+  }
+
+  //  ====================User====================
+
+  @PostMapping(value = "addUser")
+  public UserResponse addUser(@RequestBody UserRequest userRequest){
+    return userService.addUser(userRequest);
+  }
+
+  @PostMapping(value = "deleteUser")
+  public UserResponse deleteUser(@RequestBody UserRequest userRequest){
+    return userService.deleteUser(userRequest);
+  }
+
+  @PostMapping(value = "findByUserId")
+  public UserResponse findByUserId(@RequestBody UserRequest userRequest){
+    return userService.findByUserId(userRequest);
   }
 }

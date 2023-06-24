@@ -36,7 +36,7 @@ public class QuestionnaireImpl implements QuestionnaireService {
 
     questionnaireDao.save(questionnaire);
 
-    return new QuestionnaireResponse(RtnCode.ADD_QUESTIONNAIRE_SUCCESS.getMessage());
+    return new QuestionnaireResponse(RtnCode.ADD_SUCCESS.getMessage());
   }
 
   // 刪除
