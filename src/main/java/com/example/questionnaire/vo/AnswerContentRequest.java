@@ -3,6 +3,8 @@ package com.example.questionnaire.vo;
 import com.example.questionnaire.entity.AnswerContent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class AnswerContentRequest {
 
   @JsonProperty("id")
@@ -14,6 +16,9 @@ public class AnswerContentRequest {
   @JsonProperty("answerContent")
   private AnswerContent answerContent;
 
+  @JsonProperty("answerContentList")
+  private List<AnswerContent> answerContentList;
+
   public int getId() {
     return id;
   }
@@ -24,5 +29,9 @@ public class AnswerContentRequest {
 
   public AnswerContent getAnswerContent() {
     return answerContent;
+  }
+
+  public List<AnswerContent> getAnswerContentList() {
+    return answerContentList;
   }
 }

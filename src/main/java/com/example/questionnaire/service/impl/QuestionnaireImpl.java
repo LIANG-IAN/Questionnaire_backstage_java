@@ -34,9 +34,9 @@ public class QuestionnaireImpl implements QuestionnaireService {
       return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
-    questionnaireDao.save(questionnaire);
+    Questionnaire newQuestionnaire = questionnaireDao.save(questionnaire);
 
-    return new QuestionnaireResponse(RtnCode.ADD_SUCCESS.getMessage());
+    return new QuestionnaireResponse(newQuestionnaire,RtnCode.ADD_SUCCESS.getMessage());
   }
 
   @Override
@@ -80,8 +80,8 @@ public class QuestionnaireImpl implements QuestionnaireService {
       return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    questionnaireDao.save(newQuestionnaire);
-    return new QuestionnaireResponse(RtnCode.MODIFY_SUCCESS.getMessage());
+    Questionnaire questionnaire = questionnaireDao.save(newQuestionnaire);
+    return new QuestionnaireResponse(questionnaire,RtnCode.MODIFY_SUCCESS.getMessage());
   }
 
   @Override

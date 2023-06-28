@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,22 +36,34 @@ public class AnswerContentImpl implements AnswerContentService {
 
   @Override
   public AnswerContentResponse addAnswerContent(AnswerContentRequest answerContentRequest) {
-    AnswerContent answerContent = answerContentRequest.getAnswerContent();
+    List<AnswerContent> answerContentList = answerContentRequest.getAnswerContentList();
 
-    // 判斷資料是否符合規定
-    if (isAnswerContentLegal(answerContent)) {
+    if (CollectionUtils.isEmpty(answerContentList)) {
       return new AnswerContentResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
-    // 判斷是否重複作答
-    AnswerContent oldAnswerContent = repeatAnswer(answerContent);
-    if(oldAnswerContent != null){
-      oldAnswerContent.setAnswer(answerContent.getAnswer());
-      answerContentDao.save(oldAnswerContent);
-      return new AnswerContentResponse(RtnCode.ADD_SUCCESS.getMessage());
-    }
+    List<AnswerContent> correctAnswerContentList = new ArrayList<>();
+    for (AnswerContent answerContent : answerContentList) {
 
-    answerContentDao.save(answerContent);
+      // 判斷資料是否符合規定
+      if (isAnswerContentLegal(answerContent)) {
+        return new AnswerContentResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
+      }
+
+      if (!StringUtils.hasText(answerContent.getAnswer())){
+        continue;
+      }
+
+      // 判斷是否重複作答
+      AnswerContent oldAnswerContent = repeatAnswer(answerContent);
+      if (oldAnswerContent != null) {
+        oldAnswerContent.setAnswer(answerContent.getAnswer());
+        answerContentDao.save(oldAnswerContent);
+      }
+
+      correctAnswerContentList.add(answerContent);
+    }
+    answerContentDao.saveAll(correctAnswerContentList);
 
     return new AnswerContentResponse(RtnCode.ADD_SUCCESS.getMessage());
   }
@@ -99,18 +112,18 @@ public class AnswerContentImpl implements AnswerContentService {
     }
 
     // 判斷問卷是否存在
-    if(!questionnaireDao.existsById(questionnaireId)){
+    if (!questionnaireDao.existsById(questionnaireId)) {
       return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
     List<AnswerContent> answerContentList = answerContentDao.findByQuestionnaireId(questionnaireId);
 
     // 判斷是否有相符人回答
-    if (CollectionUtils.isEmpty(answerContentList)){
+    if (CollectionUtils.isEmpty(answerContentList)) {
       return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    return new AnswerContentResponse(answerContentList,RtnCode.FIND_SUCCESS.getMessage());
+    return new AnswerContentResponse(answerContentList, RtnCode.FIND_SUCCESS.getMessage());
   }
 
 
@@ -120,13 +133,12 @@ public class AnswerContentImpl implements AnswerContentService {
             answerContent.getQuestionnaire().getId() <= 0 ||
             answerContent.getQuestionnaireContent().getId() <= 0 ||
             !userDao.existsById(answerContent.getUser().getId()) ||
-            !StringUtils.hasText(answerContent.getAnswer()) ||
             !questionnaireDao.existsById(answerContent.getQuestionnaire().getId()) ||
             !questionnaireContentDao.existsById(answerContent.getQuestionnaireContent().getId());
   }
 
   // 判斷是否重複作答，有則返回舊回答
-  private AnswerContent repeatAnswer(AnswerContent answerContent){
+  private AnswerContent repeatAnswer(AnswerContent answerContent) {
     return answerContentDao.findByUserIdAndQuestionnaireIdAndQuestionnaireContentId(
             answerContent.getUser().getId(),
             answerContent.getQuestionnaire().getId(),

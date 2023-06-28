@@ -185,7 +185,7 @@ public class QuestionnaireContentImpl implements QuestionnaireContentService {
     return  questionnaireContent.getQuestionnaire().getId() <=0 ||
             !questionnaireDao.existsById(questionnaireContent.getQuestionnaire().getId()) ||
             !StringUtils.hasText(questionnaireContent.getQuestion()) ||
-            !StringUtils.hasText(questionnaireContent.getOptions()) ||
-            !StringUtils.hasText(questionnaireContent.getType());
+            !StringUtils.hasText(questionnaireContent.getType()) ||
+            !questionnaireContent.getType().equals("text") && !StringUtils.hasText(questionnaireContent.getOptions());
   }
 }

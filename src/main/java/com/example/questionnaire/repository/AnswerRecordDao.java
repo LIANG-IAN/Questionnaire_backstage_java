@@ -17,9 +17,9 @@ public interface AnswerRecordDao extends JpaRepository<AnswerRecord, Integer> {
           @Param("questionnaireId") int questionnaireId
   );
 
-  @Query(value = "select * from answer_record where user_id = :userId order by filling_time DESC ", nativeQuery = true)
+  @Query(value = "select * from answer_record where questionnaire_id = :questionnaireId order by filling_time DESC ", nativeQuery = true)
   public List<AnswerRecord> findAllByQuestionnaireIdFromAnswerRecordOrder(
-          @Param("userId") int userID
+          @Param("questionnaireId") int questionnaireId
   );
 
 }
