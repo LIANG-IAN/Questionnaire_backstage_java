@@ -22,4 +22,11 @@ public interface AnswerContentDao extends JpaRepository<AnswerContent, Integer> 
           @Param("questionnaireId") int questionnaireId,
           @Param("questionnaireContentId") int questionnaireContentId
   );
+
+  @Query(value = "select * from answer_content where user_id = :userId " +
+          "and questionnaire_id = :questionnaireId ", nativeQuery = true)
+  public List<AnswerContent> findByUserIdAndQuestionnaireId(
+          @Param("userId") int userId,
+          @Param("questionnaireId") int questionnaireId
+  );
 }

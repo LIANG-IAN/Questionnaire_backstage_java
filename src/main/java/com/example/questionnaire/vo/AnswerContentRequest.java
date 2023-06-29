@@ -10,6 +10,9 @@ public class AnswerContentRequest {
   @JsonProperty("id")
   private int id;
 
+  @JsonProperty("userId")
+  private int userId;
+
   @JsonProperty("questionnaireId")
   private int questionnaireId;
 
@@ -21,6 +24,10 @@ public class AnswerContentRequest {
 
   public int getId() {
     return id;
+  }
+
+  public int getUserId() {
+    return userId;
   }
 
   public int getQuestionnaireId() {

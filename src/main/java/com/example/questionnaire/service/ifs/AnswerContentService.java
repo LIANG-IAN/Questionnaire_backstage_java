@@ -17,4 +17,8 @@ public interface AnswerContentService {
 
   // 透過外鍵搜尋人回答
   public AnswerContentResponse findByQuestionnaireIdFromAnswerContent(AnswerContentRequest answerContentRequest);
+
+  // 透過外鍵與Id搜尋回答
+  public AnswerContentResponse findByUserIdAndQuestionnaireId(AnswerContentRequest answerContentRequest);
+
 }

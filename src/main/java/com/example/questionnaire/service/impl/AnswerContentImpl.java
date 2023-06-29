@@ -9,6 +9,7 @@ import com.example.questionnaire.repository.UserDao;
 import com.example.questionnaire.service.ifs.AnswerContentService;
 import com.example.questionnaire.vo.AnswerContentRequest;
 import com.example.questionnaire.vo.AnswerContentResponse;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -120,6 +121,31 @@ public class AnswerContentImpl implements AnswerContentService {
 
     // 判斷是否有相符人回答
     if (CollectionUtils.isEmpty(answerContentList)) {
+      return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
+    }
+
+    return new AnswerContentResponse(answerContentList, RtnCode.FIND_SUCCESS.getMessage());
+  }
+
+  @Override
+  public AnswerContentResponse findByUserIdAndQuestionnaireId(AnswerContentRequest answerContentRequest) {
+    int userId = answerContentRequest.getUserId();
+    int questionnaireId = answerContentRequest.getQuestionnaireId();
+
+    // 判斷Id是否符合規定
+    if (userId <=0 || questionnaireId <= 0){
+      return new AnswerContentResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
+    }
+
+    // 判斷人與問卷是否存在
+    if (!userDao.existsById(userId) || !questionnaireDao.existsById(questionnaireId)){
+      return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
+    }
+
+    List<AnswerContent> answerContentList = answerContentDao.findByUserIdAndQuestionnaireId(userId,questionnaireId);
+
+    // 非空判斷
+    if (CollectionUtils.isEmpty(answerContentList)){
       return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
     }
 

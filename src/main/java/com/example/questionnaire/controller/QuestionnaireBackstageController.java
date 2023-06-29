@@ -148,6 +148,11 @@ public class QuestionnaireBackstageController {
     return answerContentService.findByQuestionnaireIdFromAnswerContent (answerContentRequest);
   }
 
+  @PostMapping(value = "findByUserIdAndQuestionnaireId")
+  public AnswerContentResponse  findByUserIdAndQuestionnaireId(@RequestBody AnswerContentRequest answerContentRequest) {
+    return answerContentService.findByUserIdAndQuestionnaireId (answerContentRequest);
+  }
+
   //  ====================AnswerRecord====================
 
   @PostMapping(value = "addAnswerRecord")
