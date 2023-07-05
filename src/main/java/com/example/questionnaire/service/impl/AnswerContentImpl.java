@@ -2,6 +2,7 @@ package com.example.questionnaire.service.impl;
 
 import com.example.questionnaire.constants.RtnCode;
 import com.example.questionnaire.entity.AnswerContent;
+import com.example.questionnaire.entity.QuestionnaireContent;
 import com.example.questionnaire.repository.AnswerContentDao;
 import com.example.questionnaire.repository.QuestionnaireContentDao;
 import com.example.questionnaire.repository.QuestionnaireDao;
@@ -51,20 +52,25 @@ public class AnswerContentImpl implements AnswerContentService {
         return new AnswerContentResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
       }
 
-      if (!StringUtils.hasText(answerContent.getAnswer())){
-        continue;
-      }
+      //Optional<QuestionnaireContent> temp = questionnaireContentDao.findById(answerContent.getQuestionnaire().getId());
+      //QuestionnaireContent questionnaireContent = temp.get();
+      //if (!StringUtils.hasText(answerContent.getAnswer())){
+      //  continue;
+      //}
 
       // 判斷是否重複作答
       AnswerContent oldAnswerContent = repeatAnswer(answerContent);
       if (oldAnswerContent != null) {
         oldAnswerContent.setAnswer(answerContent.getAnswer());
         answerContentDao.save(oldAnswerContent);
+        continue;
       }
 
       correctAnswerContentList.add(answerContent);
     }
-    answerContentDao.saveAll(correctAnswerContentList);
+    if (!CollectionUtils.isEmpty(correctAnswerContentList)) {
+      answerContentDao.saveAll(correctAnswerContentList);
+    }
 
     return new AnswerContentResponse(RtnCode.ADD_SUCCESS.getMessage());
   }
@@ -133,19 +139,19 @@ public class AnswerContentImpl implements AnswerContentService {
     int questionnaireId = answerContentRequest.getQuestionnaireId();
 
     // 判斷Id是否符合規定
-    if (userId <=0 || questionnaireId <= 0){
+    if (userId <= 0 || questionnaireId <= 0) {
       return new AnswerContentResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
     }
 
     // 判斷人與問卷是否存在
-    if (!userDao.existsById(userId) || !questionnaireDao.existsById(questionnaireId)){
+    if (!userDao.existsById(userId) || !questionnaireDao.existsById(questionnaireId)) {
       return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
-    List<AnswerContent> answerContentList = answerContentDao.findByUserIdAndQuestionnaireId(userId,questionnaireId);
+    List<AnswerContent> answerContentList = answerContentDao.findByUserIdAndQuestionnaireId(userId, questionnaireId);
 
     // 非空判斷
-    if (CollectionUtils.isEmpty(answerContentList)){
+    if (CollectionUtils.isEmpty(answerContentList)) {
       return new AnswerContentResponse(RtnCode.NOT_FOUND.getMessage());
     }
 
