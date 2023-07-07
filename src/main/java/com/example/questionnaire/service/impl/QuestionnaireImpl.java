@@ -226,6 +226,67 @@ public class QuestionnaireImpl implements QuestionnaireService {
 
   }
 
+  @Override
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest) {
+    String questionnaire = questionnaireSearchRequest.getQuestionnaire();
+    LocalDate stringTime = questionnaireSearchRequest.getStartingTime();
+
+    // 非空判斷
+    if (stringTime == null || !StringUtils.hasText(questionnaire)) {
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
+    }
+
+    List<Questionnaire> questionnaireList = questionnaireDao.findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(questionnaire,stringTime);
+
+    // 判斷是否有匹配問卷
+    if (CollectionUtils.isEmpty(questionnaireList)) {
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
+    }
+
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+  }
+
+  @Override
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest) {
+    String questionnaire = questionnaireSearchRequest.getQuestionnaire();
+    LocalDate endTime = questionnaireSearchRequest.getEndTime();
+
+    // 非空判斷
+    if (endTime == null || !StringUtils.hasText(questionnaire)) {
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
+    }
+
+    List<Questionnaire> questionnaireList = questionnaireDao.findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(questionnaire,endTime);
+
+    // 判斷是否有匹配問卷
+    if (CollectionUtils.isEmpty(questionnaireList)) {
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
+    }
+
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+  }
+
+  @Override
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest) {
+    String questionnaire = questionnaireSearchRequest.getQuestionnaire();
+    LocalDate stringTime = questionnaireSearchRequest.getStartingTime();
+    LocalDate endTime = questionnaireSearchRequest.getEndTime();
+
+    // 非空判斷
+    if (stringTime == null || endTime == null || !StringUtils.hasText(questionnaire)) {
+      return new QuestionnaireResponse(RtnCode.INCORRECT_INFO_ERROR.getMessage());
+    }
+
+    List<Questionnaire> questionnaireList = questionnaireDao.findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(questionnaire,stringTime,endTime);
+
+    // 判斷是否有匹配問卷
+    if (CollectionUtils.isEmpty(questionnaireList)) {
+      return new QuestionnaireResponse(RtnCode.NOT_FOUND.getMessage());
+    }
+
+    return new QuestionnaireResponse(questionnaireList, RtnCode.FIND_SUCCESS.getMessage());
+  }
+
   // 檢查物件Questionnaire，不合規定返回true
   private boolean isQuestionnaireLegal(Questionnaire questionnaire) {
     return !StringUtils.hasText(questionnaire.getQuestionnaire()) ||

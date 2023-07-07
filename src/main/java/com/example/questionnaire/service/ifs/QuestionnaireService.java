@@ -1,9 +1,14 @@
 package com.example.questionnaire.service.ifs;
 
 
+import com.example.questionnaire.entity.Questionnaire;
 import com.example.questionnaire.vo.QuestionnaireRequest;
 import com.example.questionnaire.vo.QuestionnaireResponse;
 import com.example.questionnaire.vo.QuestionnaireSearchRequest;
+import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public interface QuestionnaireService {
 
@@ -39,5 +44,14 @@ public interface QuestionnaireService {
 
   // 結束時間以前搜尋
   public QuestionnaireResponse findByEndTimeLessThan(QuestionnaireSearchRequest questionnaireSearchRequest);
+
+  // 開始時間與模糊搜尋
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest);
+
+  // 結束時間與模糊搜尋
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest);
+
+  // 時間區間與模糊搜尋
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(QuestionnaireSearchRequest questionnaireSearchRequest);
 }
 

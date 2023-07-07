@@ -82,6 +82,22 @@ public class QuestionnaireBackstageController {
     return questionnaireService.findByEndTimeLessThan(questionnaireSearchRequest);
   }
 
+  @PostMapping(value = "findByQuestionnaireFuzzySearchAndStartingTimeThanEqual")
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+    return questionnaireService.findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(questionnaireSearchRequest);
+  }
+
+  @PostMapping(value = "findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual")
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+    return questionnaireService.findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(questionnaireSearchRequest);
+  }
+
+  @PostMapping(value = "findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual")
+  public QuestionnaireResponse findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(@RequestBody QuestionnaireSearchRequest questionnaireSearchRequest) {
+    return questionnaireService.findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(questionnaireSearchRequest);
+  }
+
+
   //  ====================QuestionnaireContent====================
 
   @PostMapping(value = "addQuestionnaireContent")

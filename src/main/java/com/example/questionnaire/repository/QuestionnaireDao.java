@@ -32,5 +32,24 @@ public interface QuestionnaireDao extends JpaRepository<Questionnaire,Integer> {
 
   // 結束時間以前搜尋
   public List<Questionnaire> findByEndTimeLessThanEqual(LocalDate endTime);
+
+  // 開始時間與模糊搜尋
+  @Query(value = "select * from questionnaire where questionnaire regexp :questionnaire and starting_time = :startingTime",nativeQuery = true)
+  public List<Questionnaire> findByQuestionnaireFuzzySearchAndStartingTimeThanEqual(
+          @Param("questionnaire")String questionnaire,
+          @Param("startingTime")LocalDate startingTime);
+
+  // 結束時間與模糊搜尋
+  @Query(value = "select * from questionnaire where questionnaire regexp :questionnaire and end_time = :endTime",nativeQuery = true)
+  public List<Questionnaire> findByQuestionnaireFuzzySearchAndEndTimeLessThanEqual(
+          @Param("questionnaire")String questionnaire,
+          @Param("endTime")LocalDate endTime);
+
+  // 時間區間與模糊搜尋
+  @Query(value = "SELECT * FROM questionnaire WHERE questionnaire REGEXP :questionnaire AND starting_time BETWEEN :startingTime AND :endTime AND end_time BETWEEN :startingTime AND :endTime", nativeQuery = true)
+  public List<Questionnaire> findByQuestionnaireFuzzySearchStartingTimeThanEqualAndEndTimeLessThanEqual(
+          @Param("questionnaire")String questionnaire,
+          @Param("startingTime")LocalDate startingTime,
+          @Param("endTime")LocalDate endTime);
 }
 	
